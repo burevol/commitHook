@@ -1,7 +1,16 @@
 nginxproxy:
   build: .
   ports:
-   - 80:80
+   - 8085:80
   volumes:
    - ./log/:/var/log/nginx   
    - ./conf/nginx.conf:/nginx/conf/nginx.conf
+  environment:
+   - JENKINS_LOGIN=${LOGIN}
+   - JENKINS_TOKEN=${TOKEN}
+   - JENKINS_SERVER=${SERVER}
+   - JENKINS_JOB=${JOB}
+   - REPO_ADDR=${REPO_ADDR}
+  restart: unless-stopped
+  container_name: nginx_repo_proxy
+
